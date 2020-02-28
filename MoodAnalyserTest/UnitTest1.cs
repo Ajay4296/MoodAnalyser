@@ -27,8 +27,17 @@ namespace MoodAnalyserTest
             string Expected = "HAPPY";
             Assert.AreEqual(Expected, moodobj.AnalyseMood());
         }
-
-
+        /// <summary>
+        /// TestCase-2.1
+        /// Analyses the mood when null mood return happy.
+        /// </summary>
+        [Test]
+        public void AnalyseMood_WhenNullMoodReturnHappy()
+        {
+            MoodAnalyser moodobj = new MoodAnalyser(null);
+            string Expected = "HAPPY";
+            Assert.AreEqual(Expected, moodobj.AnalyseMood());
+        }
 
     }
 }

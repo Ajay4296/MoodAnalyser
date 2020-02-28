@@ -22,15 +22,30 @@ namespace AnalyseMood
             message = str;
         }
         /// <summary>
-        /// Analyses the mood.
+        /// Checking null reference Exception
         /// </summary>
-        /// <param name="str">The string.</param>
         /// <returns></returns>
       public string AnalyseMood()
         {
-            if (message.ToLower().Contains("sad"))
-            return "SAD";
-            return "HAPPY";
+            try
+            {
+                if (message != null)
+                {
+                    if (message.ToLower().Contains("sad"))
+                        return "SAD";
+                    else
+                        return "HAPPY";
+                }
+                else
+                    throw new NullReferenceException();
+                
+
+            }
+            catch(NullReferenceException e)
+            {
+                Console.WriteLine("null message have passed");
+                return "HAPPY";
+            }
         }
        
     }
