@@ -29,24 +29,25 @@ namespace AnalyseMood
         {
             try
             {
-                if (message != null)
+                if (message == null)
                 {
-                    if (message.ToLower().Contains("sad"))
-                        return "SAD";
-                    else
-                        return "HAPPY";
+                    throw new MoodAnalysisException("Exception present is:-" +Exception_type.Null_Exception);
+                }
+                else if (this.message == "")
+                {
+                    throw new MoodAnalysisException("Exception present:-" +Exception_type.Empty_Exception);
+                }
+                else if (message.ToLower().Contains("sad"))
+                {
+                    return "SAD";
                 }
                 else
-                    throw new NullReferenceException();
-                
-
+                    return "HAPPY";
             }
-            catch(NullReferenceException e)
+            catch (MoodAnalysisException ex)
             {
-                Console.WriteLine("null message have passed");
                 return "HAPPY";
             }
         }
-       
     }
 }
