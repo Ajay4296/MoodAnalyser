@@ -1,5 +1,7 @@
 using NUnit.Framework;
 using AnalyseMood;
+using System;
+using System.Reflection;
 
 namespace MoodAnalyserTest
 {
@@ -59,6 +61,16 @@ namespace MoodAnalyserTest
             MoodAnalyser moodobj = new MoodAnalyser(" ");
             string Expected = "HAPPY";
             Assert.AreEqual(Expected, moodobj.AnalyseMood());
+        }
+        [TestCase]
+        public void AnalyserMoodObjectTest()
+        {
+            //  MoodAnalyserFactory factoryobj = new AnalyseMood.MoodAnalyserFactory();
+            Type obj = MoodAnalyserFactory.CreateObjectUsingReflection("AnalyseMood.MoodAnalyser");
+            MoodAnalyser mood = new MoodAnalyser();
+            bool actual = mood.Equals(obj);
+            bool expected = true;
+            Assert.AreEqual(actual, expected);
         }
 
     }

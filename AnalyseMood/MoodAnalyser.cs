@@ -48,6 +48,20 @@ namespace AnalyseMood
             {
                 return "HAPPY";
             }
+            
+
         }
+        public override bool Equals(object obj)
+        {
+            Type type = (Type)obj;
+            if (this.GetType().Equals(type.FullName))
+                return true;
+            return false;
+
+
+        }
+
+
+
     }
 }
