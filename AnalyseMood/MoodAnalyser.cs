@@ -6,29 +6,32 @@ namespace AnalyseMood
 {
    public class MoodAnalyser
     {
+        public string message;
+        /// <summary>
+        /// non_paramatrized_Constructer
+        /// </summary>
+        public MoodAnalyser()
+        {
+
+        }
+        /// <summary>
+        /// </summary>
+        /// <param name="str"></param>
+        public MoodAnalyser(string str)
+        {
+            message = str;
+        }
         /// <summary>
         /// Analyses the mood.
         /// </summary>
         /// <param name="str">The string.</param>
         /// <returns></returns>
-      public string AnalyseSadMood(string str)
+      public string AnalyseMood()
         {
-            if (str.ToLower().Contains("sad"));
+            if (message.ToLower().Contains("sad"))
             return "SAD";
             return "HAPPY";
         }
-        /// <summary>
-        /// Analyses the mood.
-        /// </summary>
-        /// <param name="str">The string.</param>
-        /// <returns></returns>
-        public string AnalyseHappyMood(string str1)
-        {
-            string str2 = "I am in any mood";
-            if (str1.Equals(str2))
-                return "HAPPY";
-            return "SAD";
-
-        }
+       
     }
 }

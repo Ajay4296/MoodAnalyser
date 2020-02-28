@@ -6,25 +6,28 @@ namespace MoodAnalyserTest
     public class Tests
     {
         /// <summary>
+        /// TestCase 1.1
         /// Analyses the sad mood when sad return sad.
         /// </summary>
         [Test]
-        public void AnalyseSadMood_WhenSadReturnSad()
+        public void AnalyseMood_WhenSadReturnSad()
         {
-            MoodAnalyser moodobj = new MoodAnalyser();
+            MoodAnalyser moodobj = new MoodAnalyser("I am in sad mood");
             string Expected = "SAD";
-                Assert.AreEqual(Expected, moodobj.AnalyseSadMood("I am in sad mood"));
+                Assert.AreEqual(Expected, moodobj.AnalyseMood());
         }
         /// <summary>
-        /// Analyses the happy mood when any mood return happy.
+        /// TestCase_1.2
+        /// Analyses the mood when happy mood return happy.
         /// </summary>
         [Test]
-        public void AnalyseHappyMood_WhenAnyMoodReturnHappy()
+        public void AnalyseMood_WhenHappyMoodReturnHappy()
         {
-            MoodAnalyser moodobj = new MoodAnalyser();
+            MoodAnalyser moodobj = new MoodAnalyser("I am in happy mood");
             string Expected = "HAPPY";
-            Assert.AreEqual(Expected, moodobj.AnalyseHappyMood("I am in any mood"));
+            Assert.AreEqual(Expected, moodobj.AnalyseMood());
         }
+
 
 
     }
