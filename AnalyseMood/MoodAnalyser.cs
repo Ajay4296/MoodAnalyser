@@ -53,8 +53,12 @@ namespace AnalyseMood
         }
         public override bool Equals(object obj)
         {
+            if(obj==null)
+            {
+                return false;
+            }
             Type type = (Type)obj;
-            if (this.GetType().Equals(type.FullName))
+            if (this.GetType().ToString().Equals(type.FullName))
                 return true;
             return false;
 

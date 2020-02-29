@@ -62,14 +62,31 @@ namespace MoodAnalyserTest
             string Expected = "HAPPY";
             Assert.AreEqual(Expected, moodobj.AnalyseMood());
         }
+        /// <summary>
+        /// Testcase-4.1
+        /// check two_object are equal
+        /// </summary>
         [TestCase]
         public void AnalyserMoodObjectTest()
         {
             //  MoodAnalyserFactory factoryobj = new AnalyseMood.MoodAnalyserFactory();
-            Type obj = MoodAnalyserFactory.CreateObjectUsingReflection("AnalyseMood.MoodAnalyser");
+            Type type = MoodAnalyserFactory.CreateObjectUsingReflection("AnalyseMood.MoodAnalyser");
             MoodAnalyser mood = new MoodAnalyser();
-            bool actual = mood.Equals(obj);
+            bool actual = mood.Equals(type);
             bool expected = true;
+            Assert.AreEqual(actual, expected);
+        }
+        /// <summary>
+        /// TestCase_4.2
+        /// throw exception when null
+        /// </summary>
+        [TestCase]
+        public void AnalyserMoodExceptionTest()
+        {
+            Type type = MoodAnalyserFactory.CreateObjectUsingReflection("MoodHour");
+            MoodAnalyser mood = new MoodAnalyser();
+            bool actual = mood.Equals(type);
+            bool expected = false;
             Assert.AreEqual(actual, expected);
         }
 

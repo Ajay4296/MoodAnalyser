@@ -9,6 +9,7 @@ namespace AnalyseMood
             Null_Exception,
             Empty_Exception,
             Invalid_exception,
+            No_Such_class_Exception,
         }
         public class MoodAnalysisException : ApplicationException
         {

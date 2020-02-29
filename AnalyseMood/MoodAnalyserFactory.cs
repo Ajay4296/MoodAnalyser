@@ -10,13 +10,19 @@ namespace AnalyseMood
         public static Type CreateObjectUsingReflection(string ClassName)
         {
             Type type = Type.GetType(ClassName);
-            return type;
+            try
+            {
+                if (type == null)
+                    throw new MoodAnalysisException("Exception" + Exception_type.No_Such_class_Exception);
+                return type;
+            }
+            catch(MoodAnalysisException me)
+            {
+                Console.WriteLine(me.Message);
+                return null;
+            }
         }
-       /* public static Type CreateSecondObjectUsingReflection(string ClassName)
-        {
-            Type type1 = Type.GetType(ClassName);
-            return type1;
-        }*/
+      
 
     }
 }
