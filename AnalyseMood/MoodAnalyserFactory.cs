@@ -8,7 +8,7 @@ namespace AnalyseMood
     /// <summary>
     /// /throw exception
     /// </summary>
-    public class MoodAnalyserFactory
+    public class MoodAnalyserReflactor
     {
         public static object CreateObjectUsingReflection(string ClassName, params object[] construct)
         {
@@ -37,6 +37,17 @@ namespace AnalyseMood
                 return Exception_type.No_Such_Method_Exception.ToString();
             }
 
+        }
+        public static string InvokeMethodUsingReflection()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            Type moodAnalysertype = Type.GetType("AnalyseMood.MoodAnalyser");
+            MethodInfo methodInfo = moodAnalysertype.GetMethod("AnalyseMood");
+            string[] stringArray = { "I am in Happy mood" };
+            object objectInstance = Activator.CreateInstance(moodAnalysertype,stringArray);
+            
+           string method  = (string)methodInfo.Invoke(objectInstance, null);
+            return method;
         }
 
         

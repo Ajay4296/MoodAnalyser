@@ -70,7 +70,7 @@ namespace MoodAnalyserTest
         public void CreatObjectUsingRef_AnalyserMoodObjectTest()
         {
             
-            object obj = MoodAnalyserFactory.CreateObjectUsingReflection("AnalyseMood.MoodAnalyser");
+            object obj = MoodAnalyserReflactor.CreateObjectUsingReflection("AnalyseMood.MoodAnalyser");
             MoodAnalyser mood = new MoodAnalyser();
             bool actual = mood.Equals(obj);
             bool expected = true;
@@ -83,7 +83,7 @@ namespace MoodAnalyserTest
         [TestCase]
         public void CreatObjectusingRef_AnalyserMoodExceptionTest()
         {
-            object type = MoodAnalyserFactory.CreateObjectUsingReflection("HappyHour");
+            object type = MoodAnalyserReflactor.CreateObjectUsingReflection("HappyHour");
             MoodAnalyser mood = new MoodAnalyser();
             var actual = type.ToString();
             var expected = Exception_type.No_Such_class_Exception.ToString();
@@ -96,7 +96,7 @@ namespace MoodAnalyserTest
         [Test]
         public void CreatobjectusingReflectionPassParametrizedConstructer()
         {
-            object reflactionobj = MoodAnalyserFactory.CreateObjectUsingReflection("AnalyseMood.MoodAnalyser","I am in Happy Mood");
+            object reflactionobj = MoodAnalyserReflactor.CreateObjectUsingReflection("AnalyseMood.MoodAnalyser","I am in Happy Mood");
             MoodAnalyser mood = new MoodAnalyser();
             bool actual = mood.Equals(reflactionobj);
             bool expected = true;
@@ -110,7 +110,7 @@ namespace MoodAnalyserTest
         [Test]
         public void WhenNotProperClassnameThroughException()
         {
-            object Reflactionobject = MoodAnalyserFactory.CreateObjectUsingReflection("Wrong class name", "I am in Happy Mood");
+            object Reflactionobject = MoodAnalyserReflactor.CreateObjectUsingReflection("Wrong class name", "I am in Happy Mood");
             MoodAnalyser moodobj = new MoodAnalyser();
 
             var Expected = Exception_type.No_Such_class_Exception.ToString(); 
@@ -124,12 +124,23 @@ namespace MoodAnalyserTest
         [Test]
         public void WhenNotProperConstructerNameThroughException()
         {
-            object Reflactionobject = MoodAnalyserFactory.CreateObjectUsingReflection("AnalyseMood.MoodAnalyser",123);
+            object Reflactionobject = MoodAnalyserReflactor.CreateObjectUsingReflection("AnalyseMood.MoodAnalyser",123);
             MoodAnalyser moodobj = new MoodAnalyser();
 
             var Expected = Exception_type.No_Such_Method_Exception.ToString();
             Assert.AreEqual(Reflactionobject, Expected);
 
+        }
+        /// <summary>
+        /// TestCse_6.1
+        /// Invokes the method using reflection should return happy.
+        /// </summary>
+        [Test]
+        public void InvokeMethodUsingReflection_shouldReturnHappy()
+        {
+            string actual = MoodAnalyserReflactor.InvokeMethodUsingReflection();
+            string Expected = "HAPPY";
+            Assert.AreEqual(actual, Expected);
         }
 
 
