@@ -67,12 +67,12 @@ namespace MoodAnalyserTest
         /// check two_object are equal
         /// </summary>
         [TestCase]
-        public void AnalyserMoodObjectTest()
+        public void CreatObjectUsingRef_AnalyserMoodObjectTest()
         {
-            //  MoodAnalyserFactory factoryobj = new AnalyseMood.MoodAnalyserFactory();
-            Type type = MoodAnalyserFactory.CreateObjectUsingReflection("AnalyseMood.MoodAnalyser");
+            
+            object obj = MoodAnalyserFactory.CreateObjectUsingReflection("AnalyseMood.MoodAnalyser");
             MoodAnalyser mood = new MoodAnalyser();
-            bool actual = mood.Equals(type);
+            bool actual = mood.Equals(obj);
             bool expected = true;
             Assert.AreEqual(actual, expected);
         }
@@ -81,14 +81,57 @@ namespace MoodAnalyserTest
         /// throw exception when null
         /// </summary>
         [TestCase]
-        public void AnalyserMoodExceptionTest()
+        public void CreatObjectusingRef_AnalyserMoodExceptionTest()
         {
-            Type type = MoodAnalyserFactory.CreateObjectUsingReflection("MoodHour");
+            object type = MoodAnalyserFactory.CreateObjectUsingReflection("HappyHour");
             MoodAnalyser mood = new MoodAnalyser();
-            bool actual = mood.Equals(type);
-            bool expected = false;
+            var actual = type.ToString();
+            var expected = Exception_type.No_Such_class_Exception.ToString();
             Assert.AreEqual(actual, expected);
         }
+        /// <summary>
+        /// UseCase_5.1
+        /// Creatobjectusings the reflection pass parametrized constructer.
+        /// </summary>
+        [Test]
+        public void CreatobjectusingReflectionPassParametrizedConstructer()
+        {
+            object reflactionobj = MoodAnalyserFactory.CreateObjectUsingReflection("AnalyseMood.MoodAnalyser","I am in Happy Mood");
+            MoodAnalyser mood = new MoodAnalyser();
+            bool actual = mood.Equals(reflactionobj);
+            bool expected = true;
+            Assert.AreEqual(actual, expected);
+        }
+
+        /// <summary>
+        /// UseCase_5.2
+        /// Whens the not proper classname through exception.
+        /// </summary>
+        [Test]
+        public void WhenNotProperClassnameThroughException()
+        {
+            object Reflactionobject = MoodAnalyserFactory.CreateObjectUsingReflection("Wrong class name", "I am in Happy Mood");
+            MoodAnalyser moodobj = new MoodAnalyser();
+
+            var Expected = Exception_type.No_Such_class_Exception.ToString(); 
+            Assert.AreEqual(Reflactionobject, Expected);
+
+        }
+        /// <summary>
+        /// UseCase_5.3
+        /// Whens the not proper constructer name through exception
+        /// </summary>
+        [Test]
+        public void WhenNotProperConstructerNameThroughException()
+        {
+            object Reflactionobject = MoodAnalyserFactory.CreateObjectUsingReflection("AnalyseMood.MoodAnalyser",123);
+            MoodAnalyser moodobj = new MoodAnalyser();
+
+            var Expected = Exception_type.No_Such_Method_Exception.ToString();
+            Assert.AreEqual(Reflactionobject, Expected);
+
+        }
+
 
     }
 }

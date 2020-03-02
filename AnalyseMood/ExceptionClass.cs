@@ -10,7 +10,8 @@ namespace AnalyseMood
             Empty_Exception,
             Invalid_exception,
             No_Such_class_Exception,
-        }
+             No_Such_Method_Exception,
+    }
         public class MoodAnalysisException : ApplicationException
         {
             public MoodAnalysisException(string message) : base(message)
@@ -18,5 +19,12 @@ namespace AnalyseMood
 
             }
         }
-    
+    public class ConstructerMissingException : ApplicationException
+    {
+        public ConstructerMissingException(string message) : base(message)
+        {
+
+        }
+    }
+
 }

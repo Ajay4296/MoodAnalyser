@@ -5,24 +5,42 @@ using System.Reflection;
 
 namespace AnalyseMood
 {
-   public class MoodAnalyserFactory
+    /// <summary>
+    /// /throw exception
+    /// </summary>
+    public class MoodAnalyserFactory
     {
-        public static Type CreateObjectUsingReflection(string ClassName)
+        public static object CreateObjectUsingReflection(string ClassName, params object[] construct)
         {
             Type type = Type.GetType(ClassName);
             try
             {
                 if (type == null)
+                {
                     throw new MoodAnalysisException("Exception" + Exception_type.No_Such_class_Exception);
-                return type;
+                }
+              var objInstance = Activator.CreateInstance(type,construct);
+                if(objInstance==null)
+                {
+                    throw new ConstructerMissingException("Exception" + Exception_type.No_Such_Method_Exception);
+                }
+               return objInstance;
             }
             catch(MoodAnalysisException me)
             {
                 Console.WriteLine(me.Message);
-                return null;
+                return Exception_type.No_Such_class_Exception.ToString();
             }
-        }
-      
+           
+            catch (MissingMethodException)
+            {
+                return Exception_type.No_Such_Method_Exception.ToString();
+            }
 
+        }
+
+        
+       
     }
 }
+

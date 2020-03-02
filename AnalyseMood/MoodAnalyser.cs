@@ -14,13 +14,11 @@ namespace AnalyseMood
         {
 
         }
-        /// <summary>
-        /// </summary>
-        /// <param name="str"></param>
-        public MoodAnalyser(string str)
+        public MoodAnalyser(string message)
         {
-            message = str;
+            this.message = message;
         }
+   
         /// <summary>
         /// Checking null reference Exception
         /// </summary>
@@ -57,8 +55,8 @@ namespace AnalyseMood
             {
                 return false;
             }
-            Type type = (Type)obj;
-            if (this.GetType().ToString().Equals(type.FullName))
+
+            if (this.GetType().Equals(((MoodAnalyser)obj).GetType()))
                 return true;
             return false;
 
