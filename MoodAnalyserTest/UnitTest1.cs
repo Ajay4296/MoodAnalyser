@@ -29,7 +29,7 @@ namespace MoodAnalyserTest
             string Expected = "HAPPY";
             Assert.AreEqual(Expected, moodobj.AnalyseMood());
         }
-        /// <summary>
+       /* /// <summary>
         /// TestCase-2.1
         /// Analyses the mood when null mood return happy.
         /// </summary>
@@ -39,7 +39,7 @@ namespace MoodAnalyserTest
             MoodAnalyser moodobj = new MoodAnalyser(null);
             string Expected = "HAPPY";
             Assert.AreEqual(Expected, moodobj.AnalyseMood());
-        }
+        }*/
         /// <summary>
         /// TESTCASE_3.1
         /// Analyses the mood when null throw exception mood return happy.
@@ -47,9 +47,9 @@ namespace MoodAnalyserTest
         [Test]
         public void AnalyseMood_WhenNullThrowMoodAnalysisException()
         {
-            MoodAnalyser moodobj = new MoodAnalyser(null);
-            string Expected = "HAPPY";
-            Assert.AreEqual(Expected, moodobj.AnalyseMood());
+            MoodAnalyser mood = new MoodAnalyser(null);
+            var ex = Assert.Throws<MoodAnalysisException>(() => mood.AnalyseMood());
+            Assert.AreEqual(ex.msg, "Null_Exception".ToString());
         }
         /// <summary>
         /// TestCase_3.2
@@ -58,9 +58,9 @@ namespace MoodAnalyserTest
         [Test]
         public void AnalyseMood_WhenEmptyThrowMoodAnalysisException()
         {
-            MoodAnalyser moodobj = new MoodAnalyser(" ");
-            string Expected = "HAPPY";
-            Assert.AreEqual(Expected, moodobj.AnalyseMood());
+            MoodAnalyser mood = new MoodAnalyser("");
+            var ex = Assert.Throws<MoodAnalysisException>(() => mood.AnalyseMood());
+            Assert.AreEqual(ex.msg,Exception_type.Empty_Exception.ToString());
         }
         /// <summary>
         /// Testcase-4.1
@@ -83,11 +83,13 @@ namespace MoodAnalyserTest
         [TestCase]
         public void CreatObjectusingRef_AnalyserMoodExceptionTest()
         {
-            object type = MoodAnalyserReflactor.CreateObjectUsingReflection("HappyHour");
+            /*object type = MoodAnalyserReflactor.CreateObjectUsingReflection("HappyHour");
             MoodAnalyser mood = new MoodAnalyser();
             var actual = type.ToString();
             var expected = Exception_type.No_Such_class_Exception.ToString();
-            Assert.AreEqual(actual, expected);
+            Assert.AreEqual(actual, expected);*/
+            var ex = Assert.Throws<MoodAnalysisException>(() => MoodAnalyserReflactor.CreateObjectUsingReflection("HappyHour"));
+            Assert.AreEqual(ex.msg, Exception_type.No_Such_class_Exception.ToString());
         }
         /// <summary>
         /// UseCase_5.1
@@ -110,25 +112,26 @@ namespace MoodAnalyserTest
         [Test]
         public void WhenNotProperClassnameThroughException()
         {
-            object Reflactionobject = MoodAnalyserReflactor.CreateObjectUsingReflection("Wrong class name", "I am in Happy Mood");
-            MoodAnalyser moodobj = new MoodAnalyser();
-
-            var Expected = Exception_type.No_Such_class_Exception.ToString(); 
-            Assert.AreEqual(Reflactionobject, Expected);
-
+            //object Reflactionobject = MoodAnalyserReflactor.CreateObjectUsingReflection("Wrong class name", "I am in Happy Mood");
+            //MoodAnalyser moodobj = new MoodAnalyser();
+            //var Expected = Exception_type.No_Such_class_Exception.ToString(); 
+            //Assert.AreEqual(Reflactionobject, Expected);
+            var ex = Assert.Throws<MoodAnalysisException>(() => MoodAnalyserReflactor.CreateObjectUsingReflection("Wrong class name", "I am in Happy Mood"));
+            Assert.AreEqual(ex.msg, Exception_type.No_Such_class_Exception.ToString());
         }
         /// <summary>
         /// UseCase_5.3
-        /// Whens the not proper constructer name through exception
+        /// Whens the not proper constructer name throw exception
         /// </summary>
         [Test]
-        public void WhenNotProperConstructerNameThroughException()
+        public void WhenNotProperConstructerNameThrowException()
         {
-            object Reflactionobject = MoodAnalyserReflactor.CreateObjectUsingReflection("AnalyseMood.MoodAnalyser",123);
-            MoodAnalyser moodobj = new MoodAnalyser();
-
-            var Expected = Exception_type.No_Such_Method_Exception.ToString();
-            Assert.AreEqual(Reflactionobject, Expected);
+           /* object Reflactionobject = MoodAnalyserReflactor.CreateObjectUsingReflection("AnalyseMood.MoodAnalyser",123);
+          MoodAnalyser moodobj = new MoodAnalyser();
+             var Expected = Exception_type.No_Such_Method_Exception.ToString();
+             Assert.AreEqual(Reflactionobject, Expected);*/
+            var ex = Assert.Throws<MissingMethodException>(() => MoodAnalyserReflactor.CreateObjectUsingReflection("Wrong class name", "I am in Happy Mood"));
+           Assert.AreEqual(ex.Message, Exception_type.No_Such_Method_Exception.ToString());
 
         }
         /// <summary>
@@ -138,10 +141,50 @@ namespace MoodAnalyserTest
         [Test]
         public void InvokeMethodUsingReflection_shouldReturnHappy()
         {
-            string actual = MoodAnalyserReflactor.InvokeMethodUsingReflection();
+            string actual = MoodAnalyserReflactor.InvokeMethodUsingReflection("AnalyseMood");
             string Expected = "HAPPY";
             Assert.AreEqual(actual, Expected);
         }
+
+        /// <summary>
+        /// TestCase_6.2
+        /// Whens the method is wrong throw exception.
+        /// </summary>
+        [Test]
+        public void WhenMethodIsWrongthrowException()
+        {
+            /* string actual = MoodAnalyserReflactor.InvokeMethodUsingReflection("Improper Method Name");
+             string Expected = "HAPPY";
+             Assert.AreEqual(actual, Expected);*/
+            var ex = Assert.Throws<MoodAnalysisException>(() => MoodAnalyserReflactor.InvokeMethodUsingReflection("Improper Method Name"));
+            Assert.AreEqual(ex.msg, Exception_type.No_Such_Method_Exception.ToString());
+
+        }
+        /// <summary>
+        /// Sets the field value should return happy.
+        /// Testcase_7.1
+        /// </summary>
+        [Test]
+        public void SetFieldValue_shouldReturnHappy()
+        {
+            string actual = MoodAnalyserReflactor.InvokeMethodUsingReflection("AnalyseMood","message");
+            string Expected = "HAPPY";
+            Assert.AreEqual(actual, Expected);
+        }
+        [Test]
+        public void SetImproperField_throwException()
+        {
+            var ex = Assert.Throws<MoodAnalysisException>(() => MoodAnalyserReflactor.InvokeMethodUsingReflection("AnalyseMood","Improper Field Name"));
+            Assert.AreEqual(ex.msg, Exception_type.No_Such_Field_Exception.ToString());
+        }
+        [Test]
+        public void SetNullField_throwException()
+        {
+            var ex = Assert.Throws<MoodAnalysisException>(() => MoodAnalyserReflactor.InvokeMethodUsingReflection("AnalyseMood", null));
+            Assert.AreEqual(ex.msg, Exception_type.No_Such_Field_Exception.ToString());
+        }
+
+       
 
 
     }

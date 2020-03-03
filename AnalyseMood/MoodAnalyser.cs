@@ -25,15 +25,15 @@ namespace AnalyseMood
         /// <returns></returns>
       public string AnalyseMood()
         {
-            try
-            {
+            //try
+            //{
                 if (message == null)
                 {
-                    throw new MoodAnalysisException("Exception present is:-" +Exception_type.Null_Exception);
+                    throw new MoodAnalysisException(Exception_type.Null_Exception+"");
                 }
                 else if (this.message == "")
                 {
-                    throw new MoodAnalysisException("Exception present:-" +Exception_type.Empty_Exception);
+                    throw new MoodAnalysisException(Exception_type.Empty_Exception+"");
                 }
                 else if (message.ToLower().Contains("sad"))
                 {
@@ -41,11 +41,11 @@ namespace AnalyseMood
                 }
                 else
                     return "HAPPY";
-            }
-            catch (MoodAnalysisException ex)
-            {
-                return "HAPPY";
-            }
+            //}
+            //catch (MoodAnalysisException ex)
+            //{
+            //    return "HAPPY";
+            //}
             
 
         }

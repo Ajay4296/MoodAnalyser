@@ -11,12 +11,16 @@ namespace AnalyseMood
             Invalid_exception,
             No_Such_class_Exception,
              No_Such_Method_Exception,
+             No_Such_Field_Exception,
+
     }
         public class MoodAnalysisException : ApplicationException
         {
-            public MoodAnalysisException(string message) : base(message)
-            {
+        public string msg;
 
+            public MoodAnalysisException(string message) {
+
+            this.msg = message;
             }
         }
     public class ConstructerMissingException : ApplicationException
