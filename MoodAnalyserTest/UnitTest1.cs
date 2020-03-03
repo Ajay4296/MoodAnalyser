@@ -126,13 +126,11 @@ namespace MoodAnalyserTest
         [Test]
         public void WhenNotProperConstructerNameThrowException()
         {
-           /* object Reflactionobject = MoodAnalyserReflactor.CreateObjectUsingReflection("AnalyseMood.MoodAnalyser",123);
+           object Reflactionobject = MoodAnalyserReflactor.CreateObjectUsingReflection("AnalyseMood.MoodAnalyser",123);
           MoodAnalyser moodobj = new MoodAnalyser();
              var Expected = Exception_type.No_Such_Method_Exception.ToString();
-             Assert.AreEqual(Reflactionobject, Expected);*/
-            var ex = Assert.Throws<MissingMethodException>(() => MoodAnalyserReflactor.CreateObjectUsingReflection("Wrong class name", "I am in Happy Mood"));
-           Assert.AreEqual(ex.Message, Exception_type.No_Such_Method_Exception.ToString());
-
+             Assert.AreEqual(Reflactionobject, Expected);
+           
         }
         /// <summary>
         /// TestCse_6.1
@@ -141,7 +139,7 @@ namespace MoodAnalyserTest
         [Test]
         public void InvokeMethodUsingReflection_shouldReturnHappy()
         {
-            string actual = MoodAnalyserReflactor.InvokeMethodUsingReflection("AnalyseMood");
+            string actual = MoodAnalyserReflactor.InvokeMethodUsingReflection("AnalyseMood","message");
             string Expected = "HAPPY";
             Assert.AreEqual(actual, Expected);
         }
@@ -153,10 +151,10 @@ namespace MoodAnalyserTest
         [Test]
         public void WhenMethodIsWrongthrowException()
         {
-            /* string actual = MoodAnalyserReflactor.InvokeMethodUsingReflection("Improper Method Name");
+            /* string actual = MoodAnalyserReflactor.InvokeMethodUsingReflection("Improper Method Name","message");
              string Expected = "HAPPY";
              Assert.AreEqual(actual, Expected);*/
-            var ex = Assert.Throws<MoodAnalysisException>(() => MoodAnalyserReflactor.InvokeMethodUsingReflection("Improper Method Name"));
+            var ex = Assert.Throws<MoodAnalysisException>(() => MoodAnalyserReflactor.InvokeMethodUsingReflection("Improper Method Name","message"));
             Assert.AreEqual(ex.msg, Exception_type.No_Such_Method_Exception.ToString());
 
         }
@@ -174,17 +172,17 @@ namespace MoodAnalyserTest
         [Test]
         public void SetImproperField_throwException()
         {
-            var ex = Assert.Throws<MoodAnalysisException>(() => MoodAnalyserReflactor.InvokeMethodUsingReflection("AnalyseMood","Improper Field Name"));
+            var ex = Assert.Throws<MoodAnalysisException>(() => MoodAnalyserReflactor.InvokeMethodUsingReflection("AnalyseMood", "Improper Field Name"));
             Assert.AreEqual(ex.msg, Exception_type.No_Such_Field_Exception.ToString());
         }
         [Test]
         public void SetNullField_throwException()
         {
             var ex = Assert.Throws<MoodAnalysisException>(() => MoodAnalyserReflactor.InvokeMethodUsingReflection("AnalyseMood", null));
-            Assert.AreEqual(ex.msg, Exception_type.No_Such_Field_Exception.ToString());
+            Assert.AreEqual(ex.msg, Exception_type.Null_Exception.ToString());
         }
 
-       
+
 
 
     }

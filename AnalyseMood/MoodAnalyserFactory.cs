@@ -13,29 +13,32 @@ namespace AnalyseMood
         public static object CreateObjectUsingReflection(string ClassName, params object[] construct)
         {
             Type type = Type.GetType(ClassName);
-           // try
-           // {
-                if (type == null)
-                {
-                    throw new MoodAnalysisException("" + Exception_type.No_Such_class_Exception);
-                }
-              var objInstance = Activator.CreateInstance(type,construct);
-                if(objInstance==null)
+
+            if (type == null)
+            {
+                throw new MoodAnalysisException("" + Exception_type.No_Such_class_Exception);
+            }
+            try
+            {
+                var objInstance = Activator.CreateInstance(type, construct);
+                if (objInstance == null)
                 {
                     throw new MissingMethodException("" + Exception_type.No_Such_Method_Exception);
                 }
-               return objInstance;
-        }
+                return objInstance;
+            }
+
             //catch(MoodAnalysisException me)
             //{
             //    Console.WriteLine(me.Message);
             //    return Exception_type.No_Such_class_Exception.ToString();
             //}
-           
-           /* catch (MissingMethodException)
+
+            catch (MissingMethodException)
             {
                 return Exception_type.No_Such_Method_Exception.ToString();
-            }*/
+            }
+        }
 
        // }
        public static string InvokeMethodUsingReflection(string methodName=null,string fieldName=null)
@@ -55,9 +58,12 @@ namespace AnalyseMood
                 if (fieldInfo == null)
                     throw new MoodAnalysisException(Exception_type.No_Such_Field_Exception.ToString());
                 fieldInfo.SetValue(objectInstance, fieldName);
-               
             }
-             
+                if (fieldName == null)
+                {
+                    throw new MoodAnalysisException(Exception_type.Null_Exception.ToString());
+                }
+            
 
 
             if (methodInfo == null)
